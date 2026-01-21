@@ -77,7 +77,7 @@ $$CI = 0.40\times T_s + 0.25\times H_s + 0.20\times W_s + 0.15\times V_s$$
 
 ## Authentication and Authorization
 - Auth0-managed login/logout using the Next.js Auth0 SDK.
-- Dashboard access intended for authenticated users only; Auth0 tenant should disable public signups and whitelist the provided test user (careers@fidenz.com / Pass#fidenz) with MFA enforced via email.
+- Dashboard access intended for authenticated users only; Auth0 tenant should disable public signups and whitelist the provided test user with MFA enforced via email.
 
 ## API Endpoints
 - `GET /api/weather` — Returns ranked weather data with comfort scores and `cacheHit` flag.
