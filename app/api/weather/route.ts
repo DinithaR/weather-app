@@ -3,7 +3,7 @@ import { calculateComfortIndex, WeatherData } from '@/utils/comfortIndex';
 import { getCachedData, setCachedData } from '@/utils/cache';
 import citiesData from '@/cities.json';
 
-const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY || '8560a50a1d99c4c36658440a2c124550';
+const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
 interface OpenWeatherResponse {

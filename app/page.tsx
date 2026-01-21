@@ -1,11 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { WeatherCard } from '@/components/WeatherCard';
 import { WeatherData } from '@/utils/comfortIndex';
 
 export default function Home() {
+  const { user, isLoading: authLoading } = useUser();
+  const router = useRouter();
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,7 +17,17 @@ export default function Home() {
   const [sortBy, setSortBy] = useState<'comfort' | 'temp' | 'name'>('comfort');
   const [lastUpdated, setLastUpdated] = useState<string>('');
 
+  // Authentication check
   useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/auth/login');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    // Only fetch weather data if user is authenticated
+    if (!user) return;
+
     const fetchWeatherData = async () => {
       try {
         setLoading(true);
@@ -40,7 +54,7 @@ export default function Home() {
     };
 
     fetchWeatherData();
-  }, []);
+  }, [user]);
 
   const getSortedData = () => {
     const data = [...weatherData];
@@ -55,6 +69,23 @@ export default function Home() {
         return data;
     }
   };
+
+  // Show loading state while checking authentication
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render anything if user is not authenticated (redirect is in progress)
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">

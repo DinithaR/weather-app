@@ -47,6 +47,18 @@
       "CityName": "Oslo",
       "Temp": "-3.9",
       "Status": "Clear"
+    },
+    {
+      "CityCode": "5128581",
+      "CityName": "New York",
+      "Temp": "5.8",
+      "Status": "Clear"
+    },
+    {
+      "CityCode": "2643743",
+      "CityName": "London",
+      "Temp": "12.3",
+      "Status": "Clouds"
     }
   ]
 }
